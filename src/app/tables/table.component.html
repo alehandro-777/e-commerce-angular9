@@ -1,0 +1,37 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-table-container">
+
+    <table mat-table [dataSource]="data" class="example-table" matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+
+
+      <!-- Header Column -->
+      <ng-container *ngFor="let col of table_model.header_cols" [matColumnDef]="col.key">
+        <th mat-header-cell [colSpan]="col.colspan" *matHeaderCellDef>{{col.text}}</th>
+      </ng-container>
+
+      <!-- Data Column -->
+      <ng-container *ngFor="let col of table_model.data_cols" [matColumnDef]="col.key">
+        <th mat-header-cell *matHeaderCellDef>{{col.text}}</th>
+        <td mat-cell *matCellDef="let row">{{row[col.key]}}</td>
+        <td mat-footer-cell *matFooterCellDef>{{footer_data[col.key]}}</td>
+      </ng-container>
+
+      <!-- Complex spaned headers -->
+      <div *ngFor="let h of table_model.header_rows">
+        <tr mat-header-row *matHeaderRowDef="h.displayedColumns"></tr>
+      </div>
+      
+      <!-- header + data + footer -->
+      <div *ngFor="let r of table_model.data_rows">
+        <tr mat-header-row *matHeaderRowDef="r.displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: r.displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="r.displayedColumns"></tr>
+      </div>  
+
+    </table>
+
+  </div>
+
+  <mat-paginator [length]="resultsLength" [pageSize]="page_size"></mat-paginator>
+  
+</div>
