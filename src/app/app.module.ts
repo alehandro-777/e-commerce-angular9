@@ -33,22 +33,6 @@ import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form.componen
 import { OpenDialogComponent } from './forms/dynamic-form/open-dialog/open-dialog.component';
 
 
-import {MatTableModule} from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
-import {MatSelectModule} from '@angular/material/select';
-import {MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatListModule} from '@angular/material/list';
-
-import {TableComponent} from './tables/table.component';
-import { HtmlInputComponent } from './forms/dynamic-form/input/input.component';
-import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form.component';
-import { OpenDialogComponent } from './forms/dynamic-form/open-dialog/open-dialog.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
