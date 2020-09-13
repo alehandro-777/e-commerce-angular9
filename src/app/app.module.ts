@@ -24,22 +24,31 @@ import {MatRadioModule} from '@angular/material/radio';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
-
+import {MatCardModule} from '@angular/material/card';
 
 
 import {TableComponent} from './tables/table.component';
-import { HtmlInputComponent } from './forms/dynamic-form/input/input.component';
-import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form.component';
-import { OpenDialogComponent } from './forms/dynamic-form/open-dialog/open-dialog.component';
+import { HtmlInputComponent } from './forms/input/input.component';
+import { DynamicDialogFormComponent } from './forms/dynamic-dialog-form/dynamic-dialog-form.component';
+
+
+import {LoaderInterceptor} from './shared/loader-http-interceptor';
+import {AuthInterceptor} from './shared/auth-interceptor';
+import { LoginComponent } from './login/login.component';
+import { LoaderComponent } from './loader/loader.component';
+import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form/dynamic-form.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
-    DynamicFormComponent,
+    DynamicDialogFormComponent,
     HtmlInputComponent,
-    OpenDialogComponent,
+    LoginComponent,
+    LoaderComponent,
+    DynamicFormComponent,
+    
     
   ],
   imports: [
@@ -64,15 +73,18 @@ import { OpenDialogComponent } from './forms/dynamic-form/open-dialog/open-dialo
     MatProgressBarModule,
     MatSnackBarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule,
 
   ],
   entryComponents: [
-    DynamicFormComponent
+    DynamicDialogFormComponent
 
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })

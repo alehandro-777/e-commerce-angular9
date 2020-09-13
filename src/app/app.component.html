@@ -9,7 +9,8 @@
     <span class="fill-remaining-space">
         <a mat-button [routerLink]="'/table'"> Table </a>
         <a mat-button [routerLink]="'/form'"> Form </a>
-        <open-dialog-button></open-dialog-button>
+        <a mat-button [routerLink]="'/login'"> Login </a>
+        <button  mat-button color="warn" (click)="openDialogForm()"> Dialog form </button>
     </span>
 
     <span>
@@ -21,7 +22,7 @@
 
   </mat-toolbar-row>
 </mat-toolbar>
-
+<app-loading></app-loading>
 
 <mat-sidenav-container>
   <mat-sidenav #sidenav>
@@ -45,4 +46,6 @@
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
+
 

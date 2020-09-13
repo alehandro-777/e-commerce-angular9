@@ -1,16 +1,16 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators }                 from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { InputCfg } from './input-cfg-model';
+import { InputCfg } from '../input-cfg-model';
 
 @Component({
-  selector: 'app-dynamic-form',
-  templateUrl: './dynamic-form.component.html',
-  styleUrls: ['./dynamic-form.component.css']
+  selector: 'app-dynamic-dialog-form',
+  templateUrl: './dynamic-dialog-form.component.html',
+  styleUrls: ['./dynamic-dialog-form.component.css']
 })
-export class DynamicFormComponent implements OnInit {
+export class DynamicDialogFormComponent implements OnInit {
   constructor(
-      public dialogRef: MatDialogRef<DynamicFormComponent>,
+      public dialogRef: MatDialogRef<DynamicDialogFormComponent>,
       @Inject(MAT_DIALOG_DATA) public data
     ) 
     { }

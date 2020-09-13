@@ -10,7 +10,7 @@ import {
     HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { LoaderService } from './loader.service';
+import { LoaderService } from '../loader/loader.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable()

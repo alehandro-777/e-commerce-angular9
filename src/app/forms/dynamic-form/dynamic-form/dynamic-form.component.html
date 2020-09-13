@@ -1,0 +1,15 @@
+<h4 mat-dialog-title> {{title}} </h4>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+<div class="dynamic-form-container">
+  <div *ngFor="let input of inputs" class="form-row">
+    <dyn-form-input [input]="input" [form]="form"></dyn-form-input>
+  </div>
+</div>
+
+</form>
+
+
+  <button mat-button mat-primary type="submit">Ok</button>
+  <button mat-button  (click)="onOkClick()">CAncel</button>
