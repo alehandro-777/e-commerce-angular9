@@ -19,7 +19,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import {MatBadgeModule} from '@angular/material/badge';
 import {MatRadioModule} from '@angular/material/radio';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -37,6 +37,8 @@ import {AuthInterceptor} from './shared/auth-interceptor';
 import { LoginComponent } from './login/login.component';
 import { LoaderComponent } from './loader/loader.component';
 import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form/dynamic-form.component';
+import { HomeComponent } from './home/home.component';
+import { ShopCartComponent } from './shop-cart/shop-cart.component';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form/dynamic-
     LoginComponent,
     LoaderComponent,
     DynamicFormComponent,
+    HomeComponent,
+    ShopCartComponent,
     
     
   ],
@@ -75,6 +79,7 @@ import { DynamicFormComponent } from './forms/dynamic-form/dynamic-form/dynamic-
     MatDatepickerModule,
     MatNativeDateModule,
     MatCardModule,
+    MatBadgeModule,
 
   ],
   entryComponents: [

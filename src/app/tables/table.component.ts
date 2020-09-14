@@ -63,7 +63,6 @@ export class TableComponent implements OnInit {
             this.sort.active, this.sort.direction, this.paginator.pageIndex);
         }),
         map(data => {
-          // Flip flag to show that loading has finished.
           this.resultsLength = data.total_count;
           return data;
         }),
@@ -73,9 +72,7 @@ export class TableComponent implements OnInit {
       ).subscribe(
         table => {
           this.data = this.ConvertApiRowsToTableRows(table.rows);
-
           this.footer_data = this.ConvertApiRowToTableRow(table.fotter_row);
-
         })
   }
 

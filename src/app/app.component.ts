@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FormService} from './forms/form.service'
+import {AuthenticationService} from './login/authentication.service'
 
 @Component({
   selector: 'app-root',
@@ -8,10 +9,16 @@ import {FormService} from './forms/form.service'
 })
 export class AppComponent {
 
-  constructor(private _formService : FormService) {}
+  constructor(
+    private _authService : AuthenticationService,
+    private _formService : FormService) {}
 
   openDialogForm(){
     this._formService.openDialog('form_id');
+  }
+
+  logout(){
+    this._authService.logout(); 
   }
 
 }
