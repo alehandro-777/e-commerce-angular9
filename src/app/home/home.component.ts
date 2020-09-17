@@ -5,6 +5,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {from , merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
+import {environment} from '../../environments/environment'
+import {MatSelectionList} from '@angular/material/list';
 
 @Component({
   selector: 'app-home',
@@ -13,12 +15,17 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 })
 
 export class HomeComponent implements OnInit {
+  default_page_size = 10;
+
   products:Product[];
   categories:ProductCategory[];
   page_size = 10;
+  
   //needed for paginator
   resultsLength = 0;
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSelectionList, {static: true}) cat_list: MatSelectionList;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,38 +34,58 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    const qparams = this.route.snapshot.queryParams;
+    this.paginator.pageIndex  = +qparams['page'] > 1 ? +qparams['page'] - 1 : 0;
+    this.page_size =  +qparams['per_page'] > 0 ? +qparams['per_page'] : this.default_page_size;
 
-    this.route.queryParams.subscribe(params => {
-      this.paginator.pageIndex  = +params['page'] > 0 ? +params['page'] : 0;
-      this.page_size =  +params['per_page'] > 0 ? +params['per_page'] : 9;
-    });
-
-    this._catalogService.getProductsCatalog().subscribe(
+    this._catalogService.getProductsCatalog(0, 100).subscribe(
       page => {
         this.categories = page.data;
-        //this.page_size =
+        this.categories.map(cat=>cat.cat_uri = `${environment.apiUrl}/home?category=${cat.name}`);
       }
     );
-//
-merge(this.paginator.page)
-.pipe(
-  startWith({}),
-  switchMap(() => {
-    return this._catalogService.getProductsPage("sort", "order", this.paginator.pageIndex);      
-  }),
-  map(data => {
-    this.resultsLength = data.total_count;
-    return data;
-  }),
-  catchError(() => {
-    return observableOf(new ProductsPage);
-  })
-).subscribe(
-  page => {
-    this.resultsLength = page.total_count;
-    this.products = page.data;
-})
 
+    // If the user changes the filter, reset back to the first page.
+    this.cat_list.selectionChange.subscribe(() => this.paginator.pageIndex = 0);
+
+// merge events
+    merge(this.cat_list.selectionChange, this.paginator.page)
+    .pipe(
+      startWith({}),
+      switchMap(() => {
+
+        if (this.cat_list.selectedOptions.selected[0]) {
+
+          return this._catalogService.getProductsPage( 
+            `category=${this.cat_list.selectedOptions.selected[0].value}`,
+            "sort", 
+            "order", 
+            this.paginator.pageIndex,
+            this.paginator.pageSize); 
+        }
+        else {
+
+          return this._catalogService.getProductsPage(
+            null,
+            "sort", 
+            "order", 
+            this.paginator.pageIndex,
+            this.paginator.pageSize); 
+        }
+     
+      }),
+      map(data => {
+        this.resultsLength = data.total_count;
+        return data;
+      }),
+      catchError(() => {
+        return observableOf(new ProductsPage);
+      })
+    ).subscribe(
+      page => {
+        this.resultsLength = page.total_count;
+        this.products = page.data;
+    })
 
   }//function
 

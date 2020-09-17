@@ -1,0 +1,70 @@
+<mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title>Edit user</mat-card-title>
+      <mat-card-subtitle>{{edit_model._id}}</mat-card-subtitle>
+    </mat-card-header>
+  
+    <img mat-card-image [src]="edit_model.image_uri" alt="Product img">
+  
+    <mat-card-content>
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field class="full-width-input">
+            <mat-label>Login</mat-label>
+            <input type="text" matInput formControlName="login" placeholder="Login" >
+            <mat-error>Error validation </mat-error>
+          </mat-form-field>
+          
+        <mat-form-field class="full-width-input">
+          <mat-label>Password</mat-label>
+          <input type="password" matInput formControlName="password" placeholder="password">
+          <mat-error>Error validation </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width-input">
+            <mat-label>Password retry</mat-label>
+            <input type="password" matInput formControlName="password_r" placeholder="retry">
+            <mat-error>Error validation </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width-input">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="name" >
+            <mat-error>Error validation </mat-error>
+          </mat-form-field>          
+
+        <mat-form-field class="full-width-input">
+          <mat-label>E-mail</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="price must be email">
+            <mat-error>Error validation </mat-error>
+        </mat-form-field> 
+
+        <mat-form-field class="full-width-input">
+            <mat-label>Phone</mat-label>
+              <input type="text" matInput formControlName="phone" placeholder="price must be a phone number">
+              <mat-error>Error validation </mat-error>
+          </mat-form-field> 
+    
+        <mat-form-field appearance="fill">
+            <mat-label>Role</mat-label>
+            <mat-select>
+              <mat-option *ngFor="let role of roles" [value]="role.value"> {{role.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        <section>
+          <mat-checkbox  type="checkbox" formControlName="enabled">Enabled</mat-checkbox>
+        </section>    
+             
+        <mat-card-actions>
+          <button mat-raised-button type="submit">Submit</button>
+        </mat-card-actions>
+  
+      </form>   
+  
+    </mat-card-content>
+  
+  </mat-card>
+  

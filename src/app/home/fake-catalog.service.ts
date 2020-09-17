@@ -10,7 +10,7 @@ import {environment} from '../../environments/environment'
   providedIn: 'root'
 })
 
-export class CatalogService {
+export class FakeCatalogService {
   constructor(
     private http: HttpClient
     ) { 
@@ -18,12 +18,13 @@ export class CatalogService {
     }
 
   createProduct(new_product : Product) : Observable<Product> {
-    return this.http.post<any>(`${environment.apiUrl}/products`, new_product);
+    alert(JSON.stringify(new_product));
+    return of(new_product);
   } 
 
   updateProduct(new_product : Product) : Observable<Product> {
-    const id = new_product._id;
-    return this.http.put<any>(`${environment.apiUrl}/products/${id}`, new_product);
+    alert(JSON.stringify(new_product));
+    return of(new_product);
   }  
 
   getProductById(id : string) : Observable<Product> {
@@ -35,18 +36,36 @@ export class CatalogService {
     return of(product);
   }  
 
-  getProductsCatalog(page_index: number =0, per_page:number=10) : Observable<ProductsCategoryPage> { 
-    return this.http.get<any>(`${environment.apiUrl}/categories?page=${page_index+1}&per_page=${per_page}`);
+  getProductsCatalog() : Observable<ProductsCategoryPage> { 
+    const page = new ProductsCategoryPage();
+
+    const cat_array = Array.from({ length: 10 }, (v, k) => {
+      const new_cat = new ProductCategory();
+      new_cat.description = `Category description description ${k}`;
+      new_cat.name = `category${k}`;
+      return new_cat;
+    });
+    page.data = cat_array;
+
+    return from([page]);
   }
 
-  getProductsPage(filter:string, sort: string, order: string, page: number=0, per_page:number=10) : Observable<ProductsPage> { 
-    if (filter) {
-      return this.http.get<any>(`${environment.apiUrl}/products?${filter}&page=${page+1}&per_page=${per_page}`);
-    }
-    else {
-      return this.http.get<any>(`${environment.apiUrl}/products?page=${page+1}&per_page=${per_page}`);
-    }
-    
+  getProductsPage(sort: string, order: string, page: number) : Observable<ProductsPage> { 
+    const prod_page = new ProductsPage();
+    prod_page.total_count = 100;
+
+    prod_page.data = Array.from({ length: 9 }, (v, k) => {
+
+      const product = new Product();
+      product.image_uri = `${environment.apiUrl}/images/1.jpg`
+      product.description = 'Product description description description description description${k}'
+      product.category = `category${k}`;
+      product.price = (k+1)*1000;
+
+      return product;
+    });
+
+    return from([prod_page]);
   }
 
   upload(formData){

@@ -20,6 +20,7 @@ export class Link {
 
 export class Product {
     _id: string;
+    name:string;
     description:string;
     category:string;
     price:number;
@@ -32,5 +33,6 @@ export class ProductCategory {
     _id: string;
     name: string;
     description: string;
+    cat_uri: string;
 }
 

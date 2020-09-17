@@ -1,8 +1,11 @@
 .main-content {
     display: flex;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 .product-card {
-    max-width: 400px;
+    max-width: 200px;
+    margin: 10px;
   }
+
+
