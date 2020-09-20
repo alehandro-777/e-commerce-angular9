@@ -1,1 +1,36 @@
-<p>users-list works!</p>
+ 
+<mat-paginator [length]="resultsLength" [pageSize]="page_size" [pageSizeOptions]="[5, 10, 15, 20]">  </mat-paginator>
+
+<mat-form-field class="full-width-input">
+  <mat-label>Filter by name</mat-label>
+  <input matInput type="text" [(ngModel)]="activeFilter">
+  <button mat-button *ngIf="activeFilter" matSuffix mat-icon-button aria-label="Clear" (click)="activeFilter=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+<button mat-icon-button #search>
+  <mat-icon>search</mat-icon>
+</button>
+<button mat-icon-button routerLink="/edituser">
+  <mat-icon>create</mat-icon>
+</button>
+<div class="main-content">
+
+  <mat-card *ngFor="let user of users" class="user-card">
+    <mat-card-header>
+      <mat-card-title>{{user.name}}</mat-card-title>
+      <mat-card-subtitle>id: {{user._id}} </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="user.image_uri" alt="Photo">
+    <mat-card-content>
+      <p>Role: {{user.role}}</p>
+      <p>Password: {{user.password}}</p>
+      <p>Email: {{user.email}}</p>
+      <p>Phone: {{user.phone}}</p>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <a mat-button routerLink="/edituser/{{user._id}}">Edit</a> 
+    </mat-card-actions>
+  </mat-card>
+</div>

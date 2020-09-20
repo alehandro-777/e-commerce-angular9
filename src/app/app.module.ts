@@ -1,5 +1,5 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -42,6 +42,7 @@ import { ShopCartComponent } from './shop-cart/shop-cart.component';
 import { EditProductComponent } from './admin/product/edit-product/edit-product.component';
 import { EditUserComponent } from './admin/user/edit-user/edit-user/edit-user.component';
 import { UsersListComponent } from './admin/user/users-list/users-list/users-list.component';
+import { FileUploadComponent } from './file-upload/file-upload/file-upload.component';
 
 
 @NgModule({
@@ -58,6 +59,7 @@ import { UsersListComponent } from './admin/user/users-list/users-list/users-lis
     EditProductComponent,
     EditUserComponent,
     UsersListComponent,
+    FileUploadComponent,
     
     
   ],
@@ -70,6 +72,7 @@ import { UsersListComponent } from './admin/user/users-list/users-list/users-lis
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
+    FormsModule,
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,

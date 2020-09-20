@@ -1,1 +1,46 @@
-<p>shop-cart works!</p>
+<mat-card>
+    <mat-card-title>
+        Shopping card
+    </mat-card-title>
+    <mat-card-content>
+        id: {{cart._id}}
+        user_id: {{cart.user_id}}
+        <table style="width:100%">
+            <tr>
+                <th></th>
+                <th>Propuct name</th>
+                <th>x1</th>
+                <th>#</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+
+            <tr *ngFor="let line of cart.lines">
+                <td><img [src]="line.product.image_uri"  width="50" height="50"></td>
+                <td>{{line.product.name}}</td>
+                <td>{{line.product.price}} </td>
+                <td>{{line.quantity}} </td>
+                <td>{{line.sub_total}}</td>
+                <td>
+                    <button mat-icon-button (click)="removeCardLine($event, line._id)" >
+                        <mat-icon>remove</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="addOneProduct($event, line.product._id)">
+                        <mat-icon>add</mat-icon>
+                    </button>                    
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4">Total</td>
+                <td>{{cart.total}}</td>
+                <td></td>
+            </tr>
+        </table>
+
+        
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button >Checkout</button>
+        <button mat-button routerLink="/home">Continue Shopping</button>
+    </mat-card-actions>
+</mat-card>

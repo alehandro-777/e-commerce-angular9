@@ -17,7 +17,10 @@ import {environment} from '../../../../environments/environment'
 export class EditProductComponent implements OnInit {
   
   @Input() product_id;
-  @ViewChild("fileUpload", {static: false}) fileUpload: ElementRef; files  = [];
+  @ViewChild("fileUpload", {static: false}) 
+  
+  fileUpload: ElementRef; 
+  files  = [];
 
   edit_model : Product;
   form: FormGroup;
@@ -31,6 +34,7 @@ export class EditProductComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.product_id  =  this.route.snapshot.params['id'];
 
     if (!this.product_id) {
       this.edit_model = new Product();
@@ -54,6 +58,7 @@ buildForm(init_model : Product) {
     category: [init_model.category, Validators.required],
     price: [init_model.price, Validators.required],
     enabled: [init_model.enabled, ],
+
   });
 
 }
@@ -72,7 +77,7 @@ buildForm(init_model : Product) {
       this.edit_model.price = this.f.price.value;
       this.edit_model.enabled = this.f.enabled.value;
 
-      if (!this.product_id) {
+      if (!this.edit_model._id) {
         this.createNew();
       }
       else {
@@ -85,7 +90,8 @@ buildForm(init_model : Product) {
     .pipe(first())
     .subscribe(
       prod => {
-        //this.router.navigate(['/']);
+        this.edit_model = prod;
+        this.router.navigate([`/editprod/${this.edit_model._id}`]);
       },
       error => {}
     );
@@ -96,7 +102,7 @@ buildForm(init_model : Product) {
     .pipe(first())
     .subscribe(
       prod => {
-        //this.router.navigate(['/']);
+        this.router.navigate([`/editprod/${this.edit_model._id}`]); 
       },
       error => {}
     );

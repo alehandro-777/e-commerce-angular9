@@ -7,6 +7,7 @@ import {from , merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {environment} from '../../environments/environment'
 import {MatSelectionList} from '@angular/material/list';
+import {ShopCartService} from '../shop-cart/shop-cart.service'
 
 @Component({
   selector: 'app-home',
@@ -29,7 +30,10 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private _catalogService : CatalogService) { 
+    private _catalogService : CatalogService,
+    private _shopCardService : ShopCartService,
+
+    ) { 
 
   }
 
@@ -89,4 +93,11 @@ export class HomeComponent implements OnInit {
 
   }//function
 
+  addProdToCard(event:string, product_id:string) {
+    this._shopCardService.addProduct('5f66645670e5040dc89c225e', product_id).subscribe(
+      card=>{
+        
+      }
+    );
+  }
 }

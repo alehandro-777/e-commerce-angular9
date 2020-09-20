@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {RoleSelectOptions, User, UpdateDeleteModel} from '../../user.model'
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {UsersService} from '../../users.service'
 import { first, catchError, map } from 'rxjs/operators';
+import {FileUploadComponent} from '../../../../file-upload/file-upload/file-upload.component'
+import {environment} from '../../../../../environments/environment'
 
 @Component({
   selector: 'app-edit-user',
@@ -15,6 +17,8 @@ export class EditUserComponent implements OnInit {
   edit_id :string;
   edit_model : User;
   form: FormGroup;
+
+  @ViewChild(FileUploadComponent, {static: true}) f_upload: FileUploadComponent;
 
   roles: RoleSelectOptions[] = [
     {value: 'admin', viewValue: 'Admin'},
@@ -30,10 +34,12 @@ export class EditUserComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(par=>{
-      this.edit_id  =  par.get('id');
+
+    this.f_upload.file_info.subscribe(data=>{
+      this.setImgUri(data.body.filename);
     })
-    
+
+    this.edit_id  =  this.route.snapshot.params['id'];
 
     if (!this.edit_id) {
       this.edit_model = new User();
@@ -47,9 +53,8 @@ export class EditUserComponent implements OnInit {
         }
       );
     }
-
-    this.buildForm(new User())
   }
+
   buildForm(init_model : User) {
 
     this.form = this.formBuilder.group({
@@ -61,7 +66,6 @@ export class EditUserComponent implements OnInit {
       role: [init_model.role],
       phone: [init_model.phone],
       enabled: [init_model.enabled],
-
     });
   
   }
@@ -96,7 +100,7 @@ export class EditUserComponent implements OnInit {
     .subscribe(
       prod => {
         this.edit_model = prod;
-        //this.router.navigate(['/']);
+        this.router.navigate([`/edituser/${this.edit_model._id}`]); 
       },
       error => {}
     );
@@ -108,13 +112,14 @@ export class EditUserComponent implements OnInit {
     .subscribe(
       res => {
         if (res.ok === 1) {
-          this.router.navigate(['/edituser',  { id: this.edit_model._id }]);   
+          this.router.navigate([`/edituser/${this.edit_model._id}`]);   
         }
-        //this.edit_model = prod;
-        //this.router.navigate(['/']);
       },
       error => {}
     );
   }
+  setImgUri(filename : string)  {
+    this.edit_model.image_uri = `${environment.apiUrl}/images/${filename}`;
+   }
 
 }

@@ -1,12 +1,10 @@
 <mat-card>
     <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
+      <img mat-card-avatar [src]="edit_model.image_uri">
       <mat-card-title>Edit user</mat-card-title>
-      <mat-card-subtitle>{{edit_model._id}}</mat-card-subtitle>
+      <mat-card-subtitle>id:{{edit_model._id}}</mat-card-subtitle>
     </mat-card-header>
-  
-    <img mat-card-image [src]="edit_model.image_uri" alt="Product img">
-  
+
     <mat-card-content>
       <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
 
@@ -48,7 +46,7 @@
     
         <mat-form-field appearance="fill">
             <mat-label>Role</mat-label>
-            <mat-select>
+            <mat-select id="role" formControlName="role">
               <mat-option *ngFor="let role of roles" [value]="role.value"> {{role.viewValue}}
               </mat-option>
             </mat-select>
@@ -65,6 +63,6 @@
       </form>   
   
     </mat-card-content>
-  
-  </mat-card>
-  
+</mat-card>
+
+<app-file-upload></app-file-upload>

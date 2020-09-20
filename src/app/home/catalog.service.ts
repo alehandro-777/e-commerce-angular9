@@ -27,12 +27,7 @@ export class CatalogService {
   }  
 
   getProductById(id : string) : Observable<Product> {
-    const product = new Product();
-    product.image_uri = `${environment.apiUrl}/images/1.jpg`
-    product.description = 'Product description description description description description'
-    product.category = `category`;
-    product.price =1000;
-    return of(product);
+    return this.http.get<any>(`${environment.apiUrl}/products/${id}`);
   }  
 
   getProductsCatalog(page_index: number =0, per_page:number=10) : Observable<ProductsCategoryPage> { 

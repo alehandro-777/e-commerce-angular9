@@ -27,6 +27,13 @@ export class Product {
     image_uri:string;
     enabled:boolean;
     created_at: Date;
+    constructor(){
+      this.name = 'Product N';
+      this.description = 'Product N description ';
+      this.price = 1000;
+      this.enabled = true;
+      this.category  = 'category1';
+    }
 }
 
 export class ProductCategory {
