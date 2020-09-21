@@ -21,6 +21,7 @@ export class ShopCartService {
   addProduct(id:string, product_id:string) : Observable<ShopCart> {
     return this.http.post<any>(`${environment.apiUrl}/shopcarts/${id}/lines`, {product_id:product_id});
   } 
+  
   removeCardLine(id:string, line_id:string) : Observable<ShopCart> {
     return this.http.delete<any>(`${environment.apiUrl}/shopcarts/${id}/lines/${line_id}`);
   }

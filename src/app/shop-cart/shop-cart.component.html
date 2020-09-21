@@ -10,7 +10,9 @@
                 <th></th>
                 <th>Propuct name</th>
                 <th>x1</th>
+                <th></th>
                 <th>#</th>
+                <th></th>
                 <th>Total</th>
                 <th></th>
             </tr>
@@ -19,19 +21,30 @@
                 <td><img [src]="line.product.image_uri"  width="50" height="50"></td>
                 <td>{{line.product.name}}</td>
                 <td>{{line.product.price}} </td>
+                <td>
+                    <button mat-icon-button >
+                        <mat-icon>remove_circle_outline</mat-icon>
+                    </button>                    
+
+                </td>
                 <td>{{line.quantity}} </td>
+                <td>
+                    <button mat-icon-button (click)="addOneProduct($event, line.product._id)">
+                        <mat-icon>add_circle_outline</mat-icon>
+                    </button>                    
+                </td>
                 <td>{{line.sub_total}}</td>
                 <td>
+                    <!--https://material.io/resources/icons/?style=baseline-->
+
                     <button mat-icon-button (click)="removeCardLine($event, line._id)" >
-                        <mat-icon>remove</mat-icon>
+                        <mat-icon>delete_forever</mat-icon>
                     </button>
-                    <button mat-icon-button (click)="addOneProduct($event, line.product._id)">
-                        <mat-icon>add</mat-icon>
-                    </button>                    
+
                 </td>
             </tr>
             <tr>
-                <td colspan="4">Total</td>
+                <td colspan="6">Total</td>
                 <td>{{cart.total}}</td>
                 <td></td>
             </tr>

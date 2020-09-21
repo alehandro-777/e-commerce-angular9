@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ShopCart, ShopCartLine} from './shop-cart.model'
 import {ShopCartService} from './shop-cart.service'
-
+import {AuthenticationService} from '../login/authentication.service'
 
 @Component({
   selector: 'app-shop-cart',
@@ -14,10 +14,12 @@ export class ShopCartComponent implements OnInit {
 
   constructor(
     private _http: ShopCartService,
+    private _authService : AuthenticationService,
   ) { }
 
   ngOnInit() {
-    this._http.getCartById('5f66645670e5040dc89c225e').subscribe(
+    const cart_id = this._authService.userValue.shopcart;
+    this._http.getCartById(cart_id).subscribe(
       card =>{
         this.cart = card;
     }

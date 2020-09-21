@@ -8,6 +8,7 @@ import {catchError, map, startWith, switchMap} from 'rxjs/operators';
 import {environment} from '../../environments/environment'
 import {MatSelectionList} from '@angular/material/list';
 import {ShopCartService} from '../shop-cart/shop-cart.service'
+import {AuthenticationService} from '../login/authentication.service'
 
 @Component({
   selector: 'app-home',
@@ -32,6 +33,7 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private _catalogService : CatalogService,
     private _shopCardService : ShopCartService,
+    private _authService : AuthenticationService,
 
     ) { 
 
@@ -94,7 +96,8 @@ export class HomeComponent implements OnInit {
   }//function
 
   addProdToCard(event:string, product_id:string) {
-    this._shopCardService.addProduct('5f66645670e5040dc89c225e', product_id).subscribe(
+    const cart_id = this._authService.userValue.shopcart;
+    this._shopCardService.addProduct(cart_id, product_id).subscribe(
       card=>{
         
       }
