@@ -26,6 +26,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 import {TableComponent} from './tables/table.component';
 import { HtmlInputComponent } from './forms/input/input.component';
@@ -90,7 +92,7 @@ import { FileUploadComponent } from './file-upload/file-upload/file-upload.compo
     MatCardModule,
     MatBadgeModule,
     MatCheckboxModule,
-    
+    MatChipsModule,
 
   ],
   entryComponents: [

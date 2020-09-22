@@ -16,18 +16,19 @@
     </span>
 
     <span>
-        <label *ngIf="currentUser"> Hi, {{currentUser}} </label>
+        <label *ngIf="user$ | async; let user"> Hi, {{user.name}} </label>
 
         <button mat-icon-button aria-label="Account" [routerLink]="'/login'">
           <mat-icon>account_circle</mat-icon>
         </button>
         
-        <button mat-icon-button aria-label="Shopping cart" [routerLink]="'/shopcart'">
-          <mat-icon>shopping_cart</mat-icon>
+        <button *ngIf="cart$ | async; let cart" mat-icon-button aria-label="Shopping cart" [routerLink]="'/shopcart'">
+          <mat-icon  [matBadge]="cart.count" 
+            [matBadgeColor]="(cart.count >0) ? 'warn' : ''">shopping_cart</mat-icon>
         </button>
 
-        <button mat-icon-button aria-label="Favorite" (click)="logout()">
-          <mat-icon matBadge="15" matBadgeColor="warn">favorite_border</mat-icon>
+        <button mat-icon-button aria-label="Exit" (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
         </button>
 
     </span>

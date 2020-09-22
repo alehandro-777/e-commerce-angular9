@@ -19,10 +19,12 @@
   <mat-card *ngFor="let user of users" class="user-card">
     <mat-card-header>
       <mat-card-title>{{user.name}}</mat-card-title>
-      <mat-card-subtitle>id: {{user._id}} </mat-card-subtitle>
     </mat-card-header>
-    <img mat-card-image [src]="user.image_uri" alt="Photo">
+    <img mat-card-image [src]="user.image_uri">
     <mat-card-content>
+      <p>id: {{user._id}}</p>
+      <p>cart: {{user.shopcart}}</p>
+      <p>Login: {{user.login}}</p>
       <p>Role: {{user.role}}</p>
       <p>Password: {{user.password}}</p>
       <p>Email: {{user.email}}</p>
@@ -30,7 +32,9 @@
 
     </mat-card-content>
     <mat-card-actions>
-      <a mat-button routerLink="/edituser/{{user._id}}">Edit</a> 
+      <button mat-icon-button routerLink="/edituser/{{user._id}}">
+        <mat-icon>edit</mat-icon>
+     </button>
     </mat-card-actions>
   </mat-card>
 </div>

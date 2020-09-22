@@ -5,6 +5,7 @@ export class ShopCart {
     user_id:string;
     lines : ShopCartLine[];
     total : number=0;
+    count : number=0;
     created_at: Date;
     enabled: boolean=true;
 }
