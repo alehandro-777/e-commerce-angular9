@@ -32,7 +32,7 @@ export class DynamicFormComponent implements OnInit {
     //this.dialogRef.close();
   }
 
-  onOkClick() {
+  onSubmit() {
     //this.dialogRef.close(this.form.value);
   }
 
