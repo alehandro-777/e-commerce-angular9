@@ -28,6 +28,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatChipsModule} from '@angular/material/chips';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {TableComponent} from './tables/table.component';
 import { HtmlInputComponent } from './forms/input/input.component';
@@ -45,6 +46,8 @@ import { EditProductComponent } from './admin/product/edit-product/edit-product.
 import { EditUserComponent } from './admin/user/edit-user/edit-user/edit-user.component';
 import { UsersListComponent } from './admin/user/users-list/users-list/users-list.component';
 import { FileUploadComponent } from './file-upload/file-upload/file-upload.component';
+import { EditProdCatComponent } from './admin/prod-cat/edit-prod-cat/edit-prod-cat.component';
+import { ProdCatListComponent } from './admin/prod-cat/prod-cat-list/prod-cat-list.component';
 
 
 @NgModule({
@@ -62,6 +65,8 @@ import { FileUploadComponent } from './file-upload/file-upload/file-upload.compo
     EditUserComponent,
     UsersListComponent,
     FileUploadComponent,
+    EditProdCatComponent,
+    ProdCatListComponent,
     
     
   ],
@@ -93,6 +98,7 @@ import { FileUploadComponent } from './file-upload/file-upload/file-upload.compo
     MatBadgeModule,
     MatCheckboxModule,
     MatChipsModule,
+    FlexLayoutModule,
 
   ],
   entryComponents: [

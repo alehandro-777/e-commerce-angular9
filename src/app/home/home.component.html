@@ -1,27 +1,19 @@
-<mat-sidenav-container autosize>
+<mat-selection-list #list>
+  <mat-list-option *ngFor="let category of categories" [value]="category.name">
+    {{ category.description }}
+  </mat-list-option>
+</mat-selection-list>
 
-  <mat-sidenav mode="side" opened >
+<mat-chip-list aria-label="Cat">
+  <mat-chip *ngFor="let cat of list.selectedOptions.selected">{{cat.value}}</mat-chip>
+</mat-chip-list>
 
-    <mat-selection-list #list>
-      <mat-list-option *ngFor="let category of categories" [value]="category.name">
-        {{ category.description }}
-      </mat-list-option>
-    </mat-selection-list>
-
-  </mat-sidenav>
-  
-  <mat-sidenav-content >
-
-    <mat-chip-list aria-label="Cat">
-      <mat-chip *ngFor="let cat of list.selectedOptions.selected">{{cat.value}}</mat-chip>
-    </mat-chip-list>
-
-    <mat-paginator [length]="resultsLength" [pageSize]="page_size" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+<mat-paginator [length]="resultsLength" [pageSize]="page_size" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
 
 
-
+    
+    
     <div class="main-content">
-
       <mat-card *ngFor="let product of products" class="product-card">
         <mat-card-header>
           <mat-card-title>{{product.name}}</mat-card-title>
@@ -47,7 +39,4 @@
       </mat-card>
     </div>
   
-  </mat-sidenav-content>
-
-</mat-sidenav-container>
 

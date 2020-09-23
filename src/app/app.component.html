@@ -1,20 +1,28 @@
+<div style="height: 100vh;">
 
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Angular</span>
+    <span>E-SHOP</span>
+    <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
 
+    <div fxShow="true" fxHide.lt-md="true">
+    <!-- The following menu items will be hidden on both SM and XS screen sizes -->
     <!-- This fills the remaining space of the current row -->
-    <span class="fill-remaining-space">
+    <span>
       <a mat-button [routerLink]="'/home'"> Home </a>
       <a mat-button [routerLink]="'/editprod'"> Add Product </a>
+      <a mat-button [routerLink]="'/editprodcat'"> Add Product-category </a>
       <a mat-button [routerLink]="'/edituser'"> Add User </a>
       <a mat-button [routerLink]="'/users'"> Users list </a>
+      <a mat-button [routerLink]="'/prodcats'"> Categories </a>
       <a mat-button [routerLink]="'/table'"> Table </a>
       <a mat-button [routerLink]="'/form'"> Form </a>
-      <a mat-button [routerLink]="'/login'"> Login </a>
-      <button  mat-button color="warn" (click)="openDialogForm()"> Dialog form </button>
+      <a mat-button (click)="openDialogForm()"> Dialog-form </a>
     </span>
-
+  </div>
+  <span class="fill-remaining-space"></span>
     <span>
         <label *ngIf="user$ | async; let user"> Hi, {{user.name}} </label>
 
@@ -22,7 +30,7 @@
           <mat-icon>account_circle</mat-icon>
         </button>
         
-        <button *ngIf="cart$ | async; let cart" mat-icon-button aria-label="Shopping cart" [routerLink]="'/shopcart'">
+        <button *ngIf="cart$ | async; let cart" mat-icon-button (click)="onShopCartClick()" >
           <mat-icon  [matBadge]="cart.count" 
             [matBadgeColor]="(cart.count >0) ? 'warn' : ''">shopping_cart</mat-icon>
         </button>
@@ -33,10 +41,42 @@
 
     </span>
 
+
+
   </mat-toolbar-row>
 </mat-toolbar>
+
 <app-loading></app-loading>
-<router-outlet></router-outlet>
+
+
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+
+      <a  [routerLink]="'/home'"  mat-list-item> Home</a>
+      <a  [routerLink]="'/editprod'"  mat-list-item> Add Product</a>
+      <a  [routerLink]="'/editprodcat'"  mat-list-item> Add Product-category </a>
+      <a  [routerLink]="'/edituser'"  mat-list-item> Add User </a>
+      <a  [routerLink]="'/users'"  mat-list-item> Users list </a>
+      <a  [routerLink]="'/prodcats'"  mat-list-item> Categories </a>
+      <a  [routerLink]="'/table'"  mat-list-item> Table </a>
+      <a  [routerLink]="'/form'"  mat-list-item> Form </a>
+      <a  (click)="openDialogForm()"  mat-list-item> Dialog-form</a>
+
+
+      <a (click)="sidenav.toggle()" mat-list-item>
+        <mat-icon>close</mat-icon> Close
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content fxFlexFill>
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+</div>
 
 
 

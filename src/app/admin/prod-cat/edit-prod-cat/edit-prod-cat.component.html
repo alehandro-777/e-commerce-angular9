@@ -1,0 +1,30 @@
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>Edit category</mat-card-title>
+      <mat-card-subtitle>{{edit_model._id}}</mat-card-subtitle>
+    </mat-card-header>
+   
+    <mat-card-content>
+      <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+        <mat-form-field class="full-width-input">
+          <mat-label>Name</mat-label>
+          <input type="text" matInput formControlName="name" placeholder="name" >
+          <mat-error>Error validation </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field class="full-width-input">
+          <mat-label>Description</mat-label>
+          <input type="text" matInput formControlName="description" placeholder="description">
+          <mat-error>Error validation </mat-error>
+        </mat-form-field>
+                       
+        <mat-card-actions>
+          <button mat-raised-button type="submit">Submit</button>
+        </mat-card-actions>
+  
+      </form>   
+  
+    </mat-card-content>
+  
+  </mat-card>

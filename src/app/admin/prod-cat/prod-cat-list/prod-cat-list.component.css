@@ -1,0 +1,9 @@
+.main-content {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+}
+.cat-card {
+    max-width: 200px;
+    margin: 10px;
+  }

@@ -1,0 +1,30 @@
+<mat-paginator [length]="resultsLength" [pageSize]="page_size" [pageSizeOptions]="[5, 10, 15, 20]">  </mat-paginator>
+
+<button mat-icon-button routerLink="/editprodcat">
+  <mat-icon>create</mat-icon>
+</button>
+
+<div class="main-content">
+
+  <mat-card *ngFor="let cat of cats" class="cat-card">
+    <mat-card-header>
+      <mat-card-title>{{cat.name}}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p>id: {{cat._id}}</p>
+      <p>name: {{cat.name}}</p>
+      <p>descriptor: {{cat.description}}</p>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button routerLink="/editprodcat/{{cat._id}}">
+        <mat-icon>edit</mat-icon>
+     </button>
+     <button mat-icon-button (click)="deleteCat(cat._id)">
+        <mat-icon>delete</mat-icon>
+     </button>
+
+    </mat-card-actions>
+  </mat-card>
+</div>

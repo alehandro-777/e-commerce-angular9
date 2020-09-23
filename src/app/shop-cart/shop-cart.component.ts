@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ShopCart, ShopCartLine} from './shop-cart.model'
 import {ShopCartService} from './shop-cart.service'
 import {AuthenticationService} from '../login/authentication.service'
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shop-cart',
@@ -15,14 +16,22 @@ export class ShopCartComponent implements OnInit {
   constructor(
     private _http: ShopCartService,
     private _authService : AuthenticationService,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit() {
-    const cart_id = this._authService.userValue.shopcart;
+    const cart_id = this.route.snapshot.params['id'];
+
+    if (!cart_id) {
+      this.cart = new ShopCart ();
+      return;
+    }
+
     this._http.getCartById(cart_id).subscribe(
       card =>{
         this.cart = card;
     }
+
     )
   }
   
