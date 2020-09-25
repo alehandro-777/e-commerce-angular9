@@ -5,7 +5,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {from , merge, Observable, of as observableOf} from 'rxjs';
 import {catchError, map, startWith, switchMap} from 'rxjs/operators';
-import {environment} from '../../environments/environment'
+import {environment} from 'src/environments/environment'
 import {MatSelectionList} from '@angular/material/list';
 import {ShopCartService} from '../shop-cart/shop-cart.service'
 import {AuthenticationService} from '../login/authentication.service'
@@ -21,10 +21,6 @@ export class HomeComponent implements OnInit {
 
   products:Product[];
   categories:ProductCategory[];
-  page_size = 10;
-  
-  //needed for paginator
-  resultsLength = 0;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSelectionList, {static: true}) cat_list: MatSelectionList;
@@ -42,12 +38,12 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     const qparams = this.route.snapshot.queryParams;
     this.paginator.pageIndex  = +qparams['page'] > 1 ? +qparams['page'] - 1 : 0;
-    this.page_size =  +qparams['per_page'] > 0 ? +qparams['per_page'] : this.default_page_size;
+    this.paginator.pageSize =  +qparams['per_page'] > 0 ? +qparams['per_page'] : this.default_page_size;
 
     this._catalogService.getProductsCatalog(0, 100).subscribe(
       page => {
         this.categories = page.data;
-        this.categories.map(cat=>cat.cat_uri = `${environment.apiUrl}/home?category=${cat.name}`);
+        //this.categories.map(cat=>cat.cat_uri = `${environment.apiUrl}/home?category=${cat.name}`);
       }
     );
 
@@ -59,37 +55,20 @@ export class HomeComponent implements OnInit {
     .pipe(
       startWith({}),
       switchMap(() => {
-
-        if (this.cat_list.selectedOptions.selected[0]) {
+        
+        const filter = this.cat_list.selectedOptions.selected[0] ? 
+        `category=${this.cat_list.selectedOptions.selected[0].value}` : '';
 
           return this._catalogService.getProductsPage( 
-            `category=${this.cat_list.selectedOptions.selected[0].value}`,
+            filter,
             "sort", 
             "order", 
             this.paginator.pageIndex,
-            this.paginator.pageSize); 
-        }
-        else {
-
-          return this._catalogService.getProductsPage(
-            null,
-            "sort", 
-            "order", 
-            this.paginator.pageIndex,
-            this.paginator.pageSize); 
-        }
-     
-      }),
-      map(data => {
-        this.resultsLength = data.total_count;
-        return data;
-      }),
-      catchError(() => {
-        return observableOf(new ProductsPage);
+            this.paginator.pageSize);    
       })
     ).subscribe(
       page => {
-        this.resultsLength = page.total_count;
+        this.paginator.length = page.total_count;
         this.products = page.data;
     })
 

@@ -24,12 +24,15 @@
         <mat-error>Error validation </mat-error>
       </mat-form-field>
     
-      <mat-form-field class="full-width-input">
+      <mat-form-field >             
         <mat-label>Category</mat-label>
-        <input type="text" matInput formControlName="category" placeholder="category">
-        <mat-error>Error validation </mat-error>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let cat of (categories$ | async).data" [value]="cat.name">
+              {{cat.description}}
+            </mat-option>
+          </mat-select>
       </mat-form-field>
-    
+
       <mat-form-field class="full-width-input">
         <mat-label>Price</mat-label>
           <input type="number" matInput formControlName="price" placeholder="price must be a number !!!">

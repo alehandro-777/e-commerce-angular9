@@ -7,7 +7,24 @@
 <mat-chip-list aria-label="Cat">
   <mat-chip *ngFor="let cat of list.selectedOptions.selected">{{cat.value}}</mat-chip>
 </mat-chip-list>
-  
+
+<mat-paginator [length]="resultsLength"  [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+
+<mat-form-field class="full-width-input">
+  <mat-label>search product</mat-label>
+  <input matInput type="text" [(ngModel)]="activeFilter">
+  <button mat-button *ngIf="activeFilter" matSuffix mat-icon-button aria-label="Clear" (click)="activeFilter=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+<button mat-icon-button #search>
+  <mat-icon>search</mat-icon>
+</button>
+
+<button mat-icon-button routerLink="/editprod">
+  <mat-icon>add_circle</mat-icon>
+</button>
+
 <div class="main-content">
   <mat-card *ngFor="let product of products" class="product-card">
     <mat-card-header>
@@ -34,5 +51,4 @@
   </mat-card>
 </div>
 
-<mat-paginator [length]="resultsLength" [pageSize]="page_size" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
 

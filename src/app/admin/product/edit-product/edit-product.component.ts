@@ -3,9 +3,9 @@ import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CatalogService } from '../../../home/catalog.service';
-import { Product } from '../../../home/catalog.model'
+import { Product, ProductsCategoryPage} from '../../../home/catalog.model'
 import { first, catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import {environment} from '../../../../environments/environment'
 
 @Component({
@@ -21,6 +21,8 @@ export class EditProductComponent implements OnInit {
   
   fileUpload: ElementRef; 
   files  = [];
+
+  categories$ : Observable<ProductsCategoryPage>;
 
   edit_model : Product;
   form: FormGroup;
@@ -48,6 +50,7 @@ export class EditProductComponent implements OnInit {
         }
       );
     }
+    this.categories$ = this._catalogService.getProductsCatalog(0, 100);
 }
 
 buildForm(init_model : Product) {

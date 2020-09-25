@@ -35,13 +35,7 @@ export class CatalogService {
   }
 
   getProductsPage(filter:string, sort: string, order: string, page: number=0, per_page:number=10) : Observable<ProductsPage> { 
-    if (filter) {
-      return this.http.get<any>(`${environment.apiUrl}/products?${filter}&page=${page+1}&per_page=${per_page}`);
-    }
-    else {
-      return this.http.get<any>(`${environment.apiUrl}/products?page=${page+1}&per_page=${per_page}`);
-    }
-    
+    return this.http.get<any>(`${environment.apiUrl}/products?${filter}&page=${page+1}&per_page=${per_page}`);  
   }
 
   upload(formData){
