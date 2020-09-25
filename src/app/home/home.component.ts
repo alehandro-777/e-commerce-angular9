@@ -18,7 +18,7 @@ import {AuthenticationService} from '../login/authentication.service'
 
 export class HomeComponent implements OnInit {
   default_page_size = 10;
-
+  activeFilter: string;
   products:Product[];
   categories:ProductCategory[];
 

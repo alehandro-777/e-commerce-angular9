@@ -8,7 +8,7 @@
   <mat-chip *ngFor="let cat of list.selectedOptions.selected">{{cat.value}}</mat-chip>
 </mat-chip-list>
 
-<mat-paginator [length]="resultsLength"  [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+<mat-paginator  [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
 
 <mat-form-field class="full-width-input">
   <mat-label>search product</mat-label>
