@@ -6,6 +6,8 @@ import {UsersService} from '../../users.service'
 import { first, catchError, map } from 'rxjs/operators';
 import {FileUploadComponent} from '../../../../file-upload/file-upload/file-upload.component'
 import {environment} from '../../../../../environments/environment'
+import {UniqueLoginValidatorService} from './unique-login-validator.service'
+import {passwordMatchValidator} from './password-match.directive'
 
 @Component({
   selector: 'app-edit-user',
@@ -30,7 +32,7 @@ export class EditUserComponent implements OnInit {
     private _http: UsersService,
     private route: ActivatedRoute,
     private router: Router,
-
+    private uniqueLoginValidator : UniqueLoginValidatorService
   ) { }
 
   ngOnInit() {
@@ -56,9 +58,9 @@ export class EditUserComponent implements OnInit {
   }
 
   buildForm(init_model : User) {
-
+    
     this.form = this.formBuilder.group({
-      login: [init_model.login, Validators.required],
+      login: [init_model.login, {validators:[Validators.required], asyncValidators: [this.uniqueLoginValidator.validate()], updateOn: 'blur'}],
       name: [init_model.name, Validators.required],
       password: [init_model.password, Validators.required],
       password_r: [init_model.password, Validators.required],
@@ -66,7 +68,11 @@ export class EditUserComponent implements OnInit {
       role: [init_model.role],
       phone: [init_model.phone],
       enabled: [init_model.enabled],
-    });
+    },
+    { validators: [passwordMatchValidator()],
+      updateOn: 'blur',
+     }
+    );
   
   }
 

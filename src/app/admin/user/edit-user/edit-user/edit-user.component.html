@@ -11,20 +11,23 @@
         <mat-form-field class="full-width-input">
             <mat-label>Login</mat-label>
             <input type="text" matInput formControlName="login" placeholder="Login" >
-            <mat-error>Error validation </mat-error>
+            <mat-error *ngIf="f.login.errors?.required">Login required</mat-error>
+            <mat-error *ngIf="f.login.invalid && f.login.errors?.uniqueLogin">Login has to be uniqie</mat-error>
           </mat-form-field>
           
         <mat-form-field class="full-width-input">
           <mat-label>Password</mat-label>
           <input type="password" matInput formControlName="password" placeholder="password">
-          <mat-error>Error validation </mat-error>
+          <mat-error *ngIf="f.password.errors?.required">Passw required</mat-error>
         </mat-form-field>
 
         <mat-form-field class="full-width-input">
             <mat-label>Password retry</mat-label>
             <input type="password" matInput formControlName="password_r" placeholder="retry">
-            <mat-error>Error validation </mat-error>
+            <mat-error *ngIf="f.password_r.errors?.required">Passw required</mat-error>          
           </mat-form-field>
+
+          <mat-error *ngIf="form.errors?.passwordsnotmatch">Passwords doesn't match</mat-error>
 
           <mat-form-field class="full-width-input">
             <mat-label>Name</mat-label>

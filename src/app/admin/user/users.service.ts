@@ -3,7 +3,7 @@ import {HttpClient, HttpParams, HttpErrorResponse, HttpHeaders} from '@angular/c
 import { from, Observable, throwError, of } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { User, UpdateDeleteModel, UsersPage } from '../user/user.model'
-import {environment} from '../../../environments/environment'
+import {environment} from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
